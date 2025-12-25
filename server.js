@@ -22,7 +22,7 @@ app.use(express.json())
 app.use('/api/users', authRoutes)
 app.use('/api/posts', postRoutes)
 
-cron
+
 
 app.listen(PORT, () => {
     console.log(`The app is running on port ${PORT}`,
