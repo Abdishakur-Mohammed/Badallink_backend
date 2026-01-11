@@ -6,17 +6,18 @@ const router = express.Router();
 //create a post
 router.post('/', protectRoute, async (req, res) => {
     try {
-        const { title, description } = req.body;
+        const { title, description, offering, need } = req.body;
 
-        if (!title || !description) {
-            return res.status(400).json({ message: 'Title and description are required' });
+        if (!title || !description || !offering || !need) {
+            return res.status(400).json({ message: 'Title, description, offering and need are required' });
         }
 
         const newPost = new Post({
             title,
             description,
+            offering,
+            need,
             user: req.user._id
-            
         });
 
         await newPost.save();
