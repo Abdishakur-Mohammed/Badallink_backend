@@ -1,6 +1,6 @@
 
 import express from 'express'
-import { protectRoute } from '../middleware/auth.middleware.js'
+import protectRoute from '../middleware/auth.middleware.js'
 import Request from '../models/Requests.js'
 
 
