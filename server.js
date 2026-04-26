@@ -6,6 +6,7 @@ import job from './src/config/cron.js';
 import { connectDB } from './src/config/db.js'
 import authRoutes from './src/routes/authRoutes.js'
 import postRoutes from './src/routes/postRoutes.js'
+import requestRoutes from './src/routes/requestRoutes.js'
 
 
 dotenv.config()
@@ -21,6 +22,7 @@ app.use(express.json())
 
 app.use('/api/users', authRoutes)
 app.use('/api/posts', postRoutes)
+app.use('/api/requests', requestRoutes)
 
 
 
