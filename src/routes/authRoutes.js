@@ -6,7 +6,7 @@ import User from '../models/User.js';
 const router = express.Router();
 
 const generateToken = (userId) => {
-    return jwt.sign({ userId}, process.env.JWT_SECRET, { expiresIn: '5d' });
+    return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: '5d' });
 };
 
 router.post('/register', async (req, res) => {
@@ -35,17 +35,17 @@ router.post('/register', async (req, res) => {
             return res.status(400).json({ message: 'Username already taken' });
         }
 
-        
+
         // get random avatar
         const profileImage = `https://api.dicebear.com/7.x/initials/png?seed=${username}`;
 
-        const newUser = new User({ 
+        const newUser = new User({
             username,
-            email, 
+            email,
             password,
             profileImage
-         });
-         
+        });
+
         await newUser.save();
 
         const token = generateToken(newUser._id);
@@ -53,15 +53,15 @@ router.post('/register', async (req, res) => {
         res.status(201).json({
             token,
             user: {
-                id: newUser._id,
+                _id: newUser._id,
                 username: newUser.username,
                 email: newUser.email,
                 profileImage: newUser.profileImage,
                 createdAt: newUser.createdAt
             }
         });
-    
-    }catch (error) {
+
+    } catch (error) {
         console.error('Error during user registration:', error);
         res.status(500).json({ message: 'Server error' });
     }
@@ -92,14 +92,15 @@ router.post('/login', async (req, res) => {
         res.status(200).json({
             token,
             user: {
-                id: user._id,
+                _id: user._id,
                 username: user.username,
                 email: user.email,
                 profileImage: user.profileImage,
                 createdAt: user.createdAt
-            }});
-        
-        }catch (error) {
+            }
+        });
+
+    } catch (error) {
         console.error('Error during user login:', error);
         res.status(500).json({ message: 'Server error' });
     }
