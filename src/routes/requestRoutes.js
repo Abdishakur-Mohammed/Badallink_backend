@@ -24,7 +24,9 @@ router.post('/', protectRoute, async (req, res) => {
 
 router.get('/', protectRoute, async (req, res) => {
     try {
-        const requests = await Request.find({ to: req.user._id })
+        const requests = await Request.find({
+            $or: [{ to: req.user._id }, { from: req.user._id }]
+        })
             .populate('from', 'username profileImage')
             .populate('post', 'title description offering need')
         res.status(200).json(requests)
