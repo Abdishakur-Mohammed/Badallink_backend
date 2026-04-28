@@ -35,7 +35,9 @@ router.post('/', protectRoute, async (req, res) => {
             request,
             text
         })
-        res.status(201).json(message)
+
+        const populateMessage = await Message.findById(message._id).populate('sender', 'username profileImage');
+        res.status(201).json(populateMessage);
     } catch (error) {
         console.log("Error in sendMessage controller:", error)
         res.status(500).json({ error: "Internal server error" })
