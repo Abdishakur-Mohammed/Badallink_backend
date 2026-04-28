@@ -24,7 +24,9 @@ app.use('/api/users', authRoutes)
 app.use('/api/posts', postRoutes)
 app.use('/api/requests', requestRoutes)
 
-
+app.get("/", (req, res) => {
+    res.json({ message: "Badallink API is live! 🚀", status: "Healthy" });
+});
 
 app.listen(PORT, () => {
     console.log(`The app is running on port ${PORT}`,
