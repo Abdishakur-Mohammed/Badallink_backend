@@ -60,8 +60,8 @@ router.get("/:requestId", protectRoute, async (req, res) => {
             return res.status(403).json({ error: "You are not authorized to send message to this request" })
         }
 
-        const message = await Message.find({ request: requestId })
-        res.status(200).json(message)
+        const messages = await Message.find({ request: requestId }).populate('sender', 'username profileImage')
+        res.status(200).json(messages)
     } catch (error) {
         console.log("Error in getMessages controller:", error)
         res.status(500).json({ error: "Internal server error" })
