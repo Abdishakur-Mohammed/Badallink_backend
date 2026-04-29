@@ -61,7 +61,9 @@ router.get('/', async (req, res) => {
 // get recommened posts by the logged in user
 router.get('/user', protectRoute, async (req, res) => {
     try {
-        const posts = await Post.find({ user: req.user._id }).sort({ createdAt: -1 })
+        const posts = await Post.find({ user: req.user._id })
+            .sort({ createdAt: -1 })
+            .populate('user', 'username profileImage');
         res.json(posts);
 
     }catch (error) {
