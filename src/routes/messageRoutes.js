@@ -37,6 +37,9 @@ router.post('/', protectRoute, async (req, res) => {
         })
 
         const populateMessage = await Message.findById(message._id).populate('sender', 'username profileImage');
+        const io = req.app.get('socketio');
+        io.to(request).emit('receive_message', populateMessage);
+
         res.status(201).json(populateMessage);
     } catch (error) {
         console.log("Error in sendMessage controller:", error)
