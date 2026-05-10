@@ -28,6 +28,7 @@ router.get('/', protectRoute, async (req, res) => {
             $or: [{ to: req.user._id }, { from: req.user._id }]
         })
             .populate('from', 'username profileImage')
+            .populate('to', 'username profileImage')
             .populate('post', 'title description offering need')
         res.status(200).json(requests)
     } catch (error) {

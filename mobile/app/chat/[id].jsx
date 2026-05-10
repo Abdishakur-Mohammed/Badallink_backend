@@ -112,7 +112,7 @@ export default function ChatScreen() {
             <View style={styles.container}>
                 <FlatList
                     data={messages}
-                    keyExtractor={(item) => item._id}
+                    keyExtractor={(item, index) => item._id || `temp-${index}`}
                     renderItem={({ item }) => {
                         const isMine = item.sender._id === user._id;
 
